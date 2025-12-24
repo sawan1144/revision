@@ -2,22 +2,23 @@ import Post from './Post'
 import React, { useEffect, useState } from 'react'
 
 function App() {
-  const [posts, setposts] = useState([])
+  const [tabdata, settabdata] = useState({});
+  const [currtab, setcurrtab] = useState(1);
 
-
-  function clicked(){
-    setposts([...posts, 
-      {namee: 'Harkirat Singh',
-      img: "https://media.licdn.com/dms/image/v2/C5603AQFbOqG9og1S5g/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1517251237812?e=1768435200&v=beta&t=uw3bJkVKX1C1GVPH0VMNOMWzbE2XLw7Rp6QN9wibnHw",
-      title: '1000 followers',
-      des: "Want to know how to win big than join the the bootcamp 1.0"}
-    ])
-  }
-
+  useEffect(()=>{
+    fetch("https://jsonplaceholder.typicode.com/todos/" + currtab)
+    .then(raw => {if(!raw.ok){throw new Error('there is a error'+ raw.status)}return raw.json()})
+    .then(data => settabdata(data))
+    .catch(err => console.log(err.message))
+  }, [currtab])
+  
   return (
-  <div>
-    <button onClick={clicked} className='bg-gray-500'>Add Posts</button>
-    {posts.map((ww, i) => <Post key={i} all={ww}/>)}
+  <div className='flex gap-9'>
+    <button onClick={()=>setcurrtab(1)} className={currtab === 1 ? 'bg-red-600!' : ''}>Task 1</button>
+    <button onClick={()=>setcurrtab(2)} className={currtab === 2 ? 'bg-red-600!' : ''}>Task 2</button>
+    <button onClick={()=>setcurrtab(3)} className={currtab === 3 ? 'bg-red-600!' : ''}>Task 3</button>
+    <button onClick={()=>setcurrtab(4)} className={currtab === 4 ? 'bg-red-600!' : ''}>Task 4</button><br />
+    <div>{tabdata.title}</div>
   </div>
   )
 } 

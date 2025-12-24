@@ -9,3 +9,7 @@ html,body{
    background-color: black;
    color: white;
 }
+button{
+   background-color: gray;
+   padding: 31px;
+}
