@@ -1,4 +1,3 @@
-import Post from './Post'
 import React, { useEffect, useState } from 'react'
 
 function App() {
@@ -11,7 +10,8 @@ function App() {
     .then(data => settabdata(data))
     .catch(err => console.log(err.message))
   }, [currtab])
-  
+
+
   return (
   <div className='flex gap-9'>
     <button onClick={()=>setcurrtab(1)} className={currtab === 1 ? 'bg-red-600!' : ''}>Task 1</button>
