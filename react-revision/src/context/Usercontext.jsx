@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { createContext } from 'react'
+
+
+export const Data = createContext();
 
 const Usercontext = ({children}) => {
+
+    const namee = 'Sawan'
   return (
     <div>
-        {children}
+        <Data.Provider value={namee}>
+            {children}
+        </Data.Provider>
     </div>
   )
 }

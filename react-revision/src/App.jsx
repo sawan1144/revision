@@ -1,18 +1,20 @@
+import { useContext } from "react"
 import Header from "./pages/Header"
 import Home from "./pages/Home"
 import More from "./pages/More"
-import Usercontext from "./context/Usercontext"
+import { Data } from "./context/Usercontext";
 
 function App() {
 
+  const dta = useContext(Data);
+  console.log(dta);
+
   return (
   <>
-  <Usercontext>
-    <h1 className="text-7xl">This is App</h1>
+    <h1 className="text-7xl">This is App {dta}</h1>
     <Header />
     <Home />
-    <More />
-  </Usercontext>  
+    <More /> 
   </>
   )
 }
