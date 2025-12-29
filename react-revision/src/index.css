@@ -10,6 +10,3 @@ html,body{
    color: white;
 }
 
-.btn-body{
-   @apply px-4 py-2 font-semibold bg-emerald-600 text-white rounded;
-}
