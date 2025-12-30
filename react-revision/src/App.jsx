@@ -1,7 +1,22 @@
+import { useState } from "react"
+import Todolist from "./Todolist"
 
 function App() {
+  const [value, setvalue] = useState('')
+  const [todos, settodos] = useState([])
 
+  function clickHandler(){
+    const item = {
+      id: todos.length+1,
+      text: value,
+    }
+    settodos((prev)=>[...prev, item])
+    setvalue('')
+  }
 
+  function handleDelete(id){
+    settodos(todos.filter((t) => t.id !== id))
+  }
 
   return (
     <div className="flex flex-col justify-center items-center gap-7 min-h-screen">
@@ -13,14 +28,12 @@ function App() {
         <div className="flex gap-5">
           <input
             className="flex-1 bg-white text-gray-600 py-3 px-3 h-min rounded-lg"
-            type="text" placeholder="Enter your todo" />
-          <button className="py-3 px-4 bg-black text-white font-bold h-min rounded-lg">Add Task</button>
+            type="text" placeholder="Enter your todo" 
+            value={value} onChange={(d)=>setvalue(d.target.value)}/>
+          <button onClick={clickHandler} className="py-3 px-4 bg-black text-white font-bold h-min rounded-lg">Add Task</button>
         </div>
 
-        <div className="flex justify-between">
-          <h4>Complete your homework</h4>
-          <button>Delete</button>
-        </div>
+        {todos.map((d)=><Todolist key={d.id} id={d.id} text={d.text} ondelete={handleDelete}/>)}
 
       </div>
 
