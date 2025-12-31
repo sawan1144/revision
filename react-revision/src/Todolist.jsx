@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Todolist = ({text, ondelete, id}) => {
+const Todolist = ({id, text, ondelete}) => {
+
+    const [toggle, settoggle] = useState(false)
+    function checked(){
+        settoggle((prev)=>!prev)
+    }
 
     return (
         <div className="flex justify-between">
-            <h4>{text}</h4>
+            <input onClick={checked} type="checkbox" />
+            <h4 className={toggle ? 'line-through' : 'flex'}>{text}</h4>
             <button onClick={()=>ondelete(id)}>Delete</button>
         </div>
     )

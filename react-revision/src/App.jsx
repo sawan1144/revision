@@ -2,20 +2,20 @@ import { useState } from "react"
 import Todolist from "./Todolist"
 
 function App() {
-  const [value, setvalue] = useState('')
+  const [value, setValue] = useState('')
   const [todos, settodos] = useState([])
 
   function clickHandler(){
     const item = {
-      id: todos.length+1,
+      id: todos.length + 1,
       text: value,
     }
     settodos((prev)=>[...prev, item])
-    setvalue('')
+    setValue('')
   }
 
-  function handleDelete(id){
-    settodos(todos.filter((t) => t.id !== id))
+  function deleteHandler(id){
+    settodos(todos.filter((d)=> d.id !== id))
   }
 
   return (
@@ -29,11 +29,11 @@ function App() {
           <input
             className="flex-1 bg-white text-gray-600 py-3 px-3 h-min rounded-lg"
             type="text" placeholder="Enter your todo" 
-            value={value} onChange={(d)=>setvalue(d.target.value)}/>
+            value={value} onChange={(e)=>setValue(e.target.value)}/>
           <button onClick={clickHandler} className="py-3 px-4 bg-black text-white font-bold h-min rounded-lg">Add Task</button>
         </div>
 
-        {todos.map((d)=><Todolist key={d.id} id={d.id} text={d.text} ondelete={handleDelete}/>)}
+      {todos.map((d)=> <Todolist key={d.id} id={d.id} text={d.text} ondelete={deleteHandler} />)}
 
       </div>
 
