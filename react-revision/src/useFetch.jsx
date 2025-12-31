@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
-const useFetch = (user) => {
-    const [data, setData] = useState({})
-    const [loading, setLoading] = useState(false)
-
+const useFetch = (city) => {
+    const [data, setData] = useState('')
+    const api = '958f47d8bc2af0f3e440374128cb9203';
 
     useEffect(()=>{
-        if(!user){return}
-        setLoading(true)
-        fetch(`https://api.github.com/users/${user}`)
-        .then((raw)=>{if(!raw.ok){return new Error(`error is ${raw.status}`)} return raw.json()})
+        if(!city){return}
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`)
+        .then((raw)=>{if(!raw.ok){throw new Error(raw.status)}return raw.json()})
         .then((data)=>setData(data)) 
-        .finally(()=>setLoading(false))   
-    },[user])
+        .catch((err)=>{console.log(err.message)});  
+    },[city])
 
     return (
-        {data, loading}
+        {data}
     )
 }
 

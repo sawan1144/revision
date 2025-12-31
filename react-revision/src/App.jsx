@@ -3,42 +3,57 @@ import useFetch from "./useFetch"
 
 function App() {
   const [value, setValue] = useState('')
-  const [user, setUser] = useState('')
-  const {data, loading} = useFetch(user)
+  const [city, setCity] = useState('')
+  const {data} = useFetch(city)
 
-  function getUser(){
-    setUser(value)
-    setValue('');
+  function getCity(){
+    setCity(value);
+    setValue('')
   }
 
 
   return (
-    <div className="flex flex-col justify-center items-center gap-7 min-h-screen">
-
-      <h1 className="text-5xl font-semibold">Github Profile Fetcher</h1>
-
-      <div className="flex flex-col gap-6 h-[50vh] w-[50vw] bg-teal-800 rounded p-10">
-
-        <div className="flex gap-5">
-          <input className="bg-gray-500 px-4 py-3 rounded-lg flex-1"
-          type="text" placeholder="Enter username here"
-          value={value} onChange={(e)=>setValue(e.target.value)}/>
-          <button onClick={getUser} className="px-8 py-3 bg-teal-600 font-bold rounded-lg">Get</button>
+    <div className="min-h-screen flex justify-center items-center bg-linear-to-br from-purple-500 via-purple-600 to-indigo-700 p-5">
+      <div className="bg-white/95 rounded-3xl p-10 w-full max-w-md shadow-2xl">
+        
+        <div className="flex gap-3 mb-8">
+          <input 
+            type="text" 
+            placeholder="Search city..." 
+            className="flex-1 px-5 py-3 border-2 border-gray-200 rounded-full text-base outline-none focus:border-purple-500 transition-colors text-gray-500"
+            value={value} onChange={(e)=>setValue(e.target.value)}
+          />
+          <button onClick={getCity} className="px-8 py-3 bg-purple-500 text-white rounded-full text-base font-medium hover:bg-purple-600 transition-colors">
+            Search
+          </button>
         </div>
-        {loading && <div>....loading</div>}
-        {data && <div className="flex px-5 py-5 gap-15">
-          <div className="flex flex-col items-center gap-5">
-            <img src={data.avatar_url ? data.avatar_url : 'nothing'} className="bg-gray-400 h-30 w-30 rounded-full" />
-            <div>{data.name ? data.name : 'Username'}</div>
-          </div>
-          <div className="flex flex-col gap-5 w-[30vw]">
-            <div>{data ? (data.bio ? data.bio : "N/A bio not found"): "Bio of the person appears here"}</div>
-            <div>{data.following ? data.following : '0'}</div>
-            <div>{data.public_repos ? data.public_repos : '0'}</div>
-          </div>
-        </div>}
-      </div>
 
+        <div className="text-center my-10">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            {data.name}, {data?.sys?.country}
+          </h1>
+          <div className="text-7xl font-bold text-purple-500 my-5">
+            {data?.main?.temp}
+          </div>
+          <p className="text-2xl text-gray-600">{data.weather?.[0]?.description}</p>
+        </div>
+
+        <div className="flex justify-around mt-10 pt-8 border-t-2 border-gray-200">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-sm text-gray-400 uppercase tracking-wide">Feels Like</span>
+            <span className="text-xl font-bold text-gray-800">{data?.main?.feels_like}</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-sm text-gray-400 uppercase tracking-wide">Humidity</span>
+            <span className="text-xl font-bold text-gray-800">{data?.main?.humidity}</span>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-sm text-gray-400 uppercase tracking-wide">Wind Speed</span>
+            <span className="text-xl font-bold text-gray-800">{data?.wind?.speed}</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   )
 }
