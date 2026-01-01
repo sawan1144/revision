@@ -7,6 +7,7 @@ const useFetch = (city) => {
 
     useEffect(()=>{
         if(!city){return}
+        setErr(null)
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`)
         .then((raw)=>{if(!raw.ok){throw new Error('City not found')}return raw.json()})
         .then((data)=>setData(data)) 

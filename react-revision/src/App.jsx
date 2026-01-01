@@ -9,9 +9,7 @@ function App() {
   function getCity(){
     setCity(value);
     setValue('')
-    console.log(err)
   }
-
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-linear-to-br from-purple-500 via-purple-600 to-indigo-700 p-5">
