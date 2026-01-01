@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react'
 
 const useFetch = (city) => {
     const [data, setData] = useState('')
+    const [err, setErr] = useState('')
     const api = '958f47d8bc2af0f3e440374128cb9203';
 
     useEffect(()=>{
         if(!city){return}
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`)
-        .then((raw)=>{if(!raw.ok){throw new Error(raw.status)}return raw.json()})
+        .then((raw)=>{if(!raw.ok){throw new Error('City not found')}return raw.json()})
         .then((data)=>setData(data)) 
-        .catch((err)=>{console.log(err.message)});  
+        .catch((errr)=>{setErr(errr.message)});  
     },[city])
 
     return (
-        {data}
+        {data, err}
     )
 }
 
